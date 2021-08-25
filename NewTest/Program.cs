@@ -18,9 +18,13 @@ namespace NewTest
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+               .ConfigureWebHostDefaults(webBuilder =>
+               {
+                   webBuilder.ConfigureKestrel(serverOptions =>
+                   {
+                       serverOptions.ListenAnyIP(5001);
+                   });
+                   webBuilder.UseStartup<Startup>();
+               });
     }
 }
